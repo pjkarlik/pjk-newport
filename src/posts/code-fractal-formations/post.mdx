@@ -1,0 +1,36 @@
+---
+title: fractal formations
+slug: fractal-formations
+image: ./images/hero02.jpg
+date: 2020-04-16
+author: code
+icon: shader
+---
+
+<iframe height="380" style="width: 100%" scrolling="no" title="Fractal  Warpings / WebGL Fragment Shader" src="https://codepen.io/pjkarlik/embed/76e274a7fa94bc5473db04d2c9867012?default-tab=result&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/pjkarlik/pen/76e274a7fa94bc5473db04d2c9867012">
+  Fractal  Warpings / WebGL Fragment Shader</a> by Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+<br/><br/>
+
+## WebGL, GLSL, JavaScript and Canvas. 
+
+The original project was created as NFT's on the **Tezos** blockchain and it created a unique Fractal object 
+each time it was minted. 
+
+To main part of this WebGL Shader is the fractal formulas. Basically I am folding space several times by a few formulas.
+Then draw a box in the center of that space - unfold - and the box now looks like a fractal. 
+To make these shapes 3D I am using the technique called Raymarching. [Raymarching](https://michaelwalczyk.com/blog-ray-marching.html), 
+much like **ray tracing**, uses math to calculate the surface of objects based on distances. That is then turned into
+color, depth, shadow in a Fragment Shader. 
+
+![fxhash](https://assets.codepen.io/163598/fxhash_capture.jpg)
+[view on fx_hash](https://www.fxhash.xyz/generative/6636)
+
+Once online users were able to mint a special fractals all randomly generated based on deterministic 
+hash values. Meaning that every time a specific hash is loaded, a repeatable specific random value is returned. 
+
+This static demo version above will allow you to see some of the variations by hitting the rerun button or reloading this page.
+
+{pk}

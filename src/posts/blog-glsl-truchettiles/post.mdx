@@ -1,0 +1,106 @@
+---
+title: glsl truchet tiles
+slug: blog-glsl-truchettiles
+image: ./images/hero01.jpg
+date: 2020-04-24
+icon: shader
+author: blog
+---
+
+<iframe height="400" style="width: 100%;" scrolling="no" title="twgl webgl bootstrap 003" src="https://codepen.io/pjkarlik/embed/MWrPPrM/3147c40136987c7168d634e546557ca0?default-tab=result&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the more ny Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+#### Patterns and Tiles
+One of the first tile pattern systems I was able to grasp was Truchet Tiles. Truchet tiles are square tiles decorated with patterns 
+that are not rotationally symmetric. When placed in a square tiling of the plane, they can form varied patterns. There are many 
+good videos and tutorials and [webpages](https://en.wikipedia.org/wiki/Truchet_tiles) on this subject.
+
+#### Basic Setup
+
+Tile systems if done right can be scaled as big or as small as your design can handle. It is assumed you've coded shaders before, 
+and just jumping into the meat of writting a truchet tile set. 
+
+For this shader we're setting the **uv** coordinates to 0 to 1, it makes things easier in 2D spaces. 0/0 is the bottom most 
+left corner of the screen with the scale increasing up and to the right. The **truchetScale** can be any size you like, 
+start with 10 and adjust from there. 
+
+```js
+const float truchetScale = 10.;
+
+void main() {
+  // Normalized pixel coordinates (from 0 to 1)
+  vec2 uv = gl_FragCoord.xy/max(resolution.x,resolution.y);
+  // set scale
+  uv *= truchetScale;
+
+  vec3 color = vec3(1);
+
+  // create new uv for tile
+  vec2 grid_uv = fract(uv)-.5;
+  // set id for each tile
+  vec2 grid_id = floor(uv);
+
+  // ... more code to come ...
+
+  fragColor = vec4(color,1.);
+}
+
+```
+After setting our **uv** we're going to then multiply it by the scaling factor **truchetScale** and make two **vec2**
+varables to keep track of the ***position*** and ***id***. 
+
+#### Making Circles
+
+The next few steps are specific to creating the circles paths. For our truchet tiles we need two quarter circles in oppsite corners. 
+The variable **d2** gets a float for how far the current position is from the corners. Next we set a new **vec2 gx** that is the
+coordinate for the closest point using the lesser of the two lengths **d2.x** and **d2.y**. Use whatever method of smoothstepping you 
+like, here in this example is just simple numbers.
+
+```js
+  // figure out which corner is closer - thats the one we'll draw
+  vec2 d2 = vec2(length(grid_uv-.5), length(grid_uv+.5));
+  vec2 gx = d2.x<d2.y? vec2(grid_uv-.5) : vec2(grid_uv+.5);
+
+  float circle = length(gx)-.5;
+  circle = smoothstep(.01,.02,circle);
+  color += circle;
+```
+
+
+After creating the circle variable we're going to use the **abs(x)** function to make the solid circle into a line of specific thickness.
+It's an interesting trick you'll find to make quick borders or outlines. 
+
+```js
+  // Add the new line after calling the circle float.
+  float circle = length(gx)-.5;
+  circle=abs(circle)-.015; // here
+  circle = smoothstep(.01,.02,circle);
+  color += circle;
+```
+
+It's not a very interesting pattern yet and just looks like wavy strip lines. We need to start flipping some random tiles here, and using a
+simple **hash** function we take the **grid_id** to generate a random number 0 to 1 and use that as the threshold to flip a given tile.
+
+```js
+  float hash21(vec2 p) {  
+    return fract(sin(dot(p, vec2(27.609, 57.583)))*43758.5453); 
+  }
+```
+
+In our main routine we'll call that hash funtion using the **grid_id** we created earlier. **floor(x)** converts the floating 
+point position variable into a whole number and thus giving that cell and id for **x** and **y**.
+
+```js
+  // set id for each tile
+  vec2 grid_id = floor(uv);
+
+  float hs = hash21(grid_id);
+  if(hs>.5) grid_uv.x*=-1.;
+```
+Now you should have your truchet pattern looking proper and random. Line thickness, amount of random and the rest can be
+edited to your liking.
+
+Thanks for reading.
+{pk}

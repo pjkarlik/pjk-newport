@@ -1,0 +1,103 @@
+---
+title: glsl boilerplate
+slug: blog-glsl-boilerplate
+image: ./images/hero01.jpg
+date: 2020-04-24
+icon: shader
+author: blog
+---
+
+<iframe height="400" style="width: 100%;" scrolling="no" title="twgl webgl bootstrap 003" src="https://codepen.io/pjkarlik/embed/zYEWgJj/44c481c4e98ab55765ee954619cba64e?default-tab=result&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the more ny Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+#### Making Shaders
+When I first got into shaders and WebGL I wanted to build everything myself, including the boilerplate. 
+While this seemed fun at the time, the drawbacks of mantaining that code proved to get a little much. 
+It's a good way to learn the basics, and the why and what of setting up a WebGL canvas. However it's a lot,
+and definitely started to cut into my creative time. I recently decided to pick up a small library to 
+help and this is a short explaination of that library and my setup.
+
+
+#### Libraries and WebGL
+There are a TON libraries out there, a litteral see of them [gist.github.com/dmnsgn/](https://gist.github.com/dmnsgn/76878ba6903cf15789b712464875cfdc)
+
+
+I make fragment shaders, so really only the most basic setup is needed. For this type of thing 
+you would attach a **vertex** and a **fragment** shaders together into a program. That program is then 
+compiled and sent to the **GPU**, with the output being rendered on the canvas.
+
+[Twgl webgl](https://twgljs.org/) - is a tiny webgl helper library and ideal for this type of thing.
+My setup has a 1/3rd less code than vanilla JS. You can also easily add in geometry or tessilation shaders
+textures, framebuffers and more.
+
+#### Set up and Overview
+
+This mirrors the codepen example above with our html having just a canvas element and the vertex and fragment shader. 
+
+
+The first step is getting the canvas element so we can turn it into a webgl element. Then we setup a var to hold our 
+shader program, which is made up of the two "named" scripts in our html.
+
+```js
+const gl = document.getElementById("canvas").getContext("webgl2");
+const programInfo = twgl.createProgramInfo(gl, [
+  "vertexShader",
+  "fragmentShader"
+]);
+```
+
+Shader get data through buffers, so we set some up. You can read the full 
+verobse way and why here [webgl2fundamentals.org](https://webgl2fundamentals.org/webgl/lessons/webgl-shaders-and-glsl.html)
+```js
+const arrays = {
+  position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0]
+};
+const bufferInfo = twgl.createBufferInfoFromArrays(gl, arrays);
+```
+
+Next is the render loop, which basically keeps calling itself and updating our program
+with any curernt variables needed. 
+
+
+Each frame gets updated with the current canvas size to catch and browser resizing.
+Then any specific data we want to send gets passed in as a uniform (variable) by calling
+the program, calling that buffer we set, and then setting what the new values are.
+
+
+This gets executed and passed into the shader once we call the drawBufferInfo command, and
+repeate for each fame we want it to be "alive".
+
+```js
+const render = (time) => {
+  twgl.resizeCanvasToDisplaySize(gl.canvas, 1.0);
+  gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+  const uniforms = {
+    u_time: time,
+    u_resolution: [gl.canvas.width, gl.canvas.height],
+  };
+
+  gl.useProgram(programInfo.program);
+  twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
+  twgl.setUniforms(programInfo, uniforms);
+  twgl.drawBufferInfo(gl, bufferInfo);
+
+  requestAnimationFrame(render);
+};
+```
+
+Finally to start it, add an eventListener to make sure its all loaded.
+```js
+window.addEventListener("DOMContentLoaded", (event) => {
+  requestAnimationFrame(render);
+});
+```
+
+You can check out more examples at using this library here at [twgljs.org/#examples](https://twgljs.org/#examples).
+For fun my old vanilla long and overly verobse first try is here -> [boilerplate](https://github.com/pjkarlik/glsl-boilerplate). 
+Has some good comments for what thigns do what when setting up WebGL and WebGL2.
+
+Thanks for reading.
+{pk}

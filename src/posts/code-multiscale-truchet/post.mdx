@@ -1,0 +1,30 @@
+---
+title: multiscale truchet tiles
+slug: code-multiscale-truchet
+image: ./images/hero01.jpg
+date: 2022-01-01
+author: code
+icon: shader
+---
+
+<iframe height="320" style="width: 100%" scrolling="no" title="Multiscale Truchet Tile / WebGL Fragment Shader" src="https://codepen.io/pjkarlik/embed/vYJRMXJ?default-tab=result&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/pjkarlik/pen/vYJRMXJ">
+  Multiscale Truchet Tile / WebGL Fragment Shader</a> by Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+<br/><br/>
+
+## WebGl, GLSL, JavaScript, and Canvas.
+
+Truchet tiles are square tiles decorated with patterns that are not rotationally symmetric. 
+When placed in a square tiling of the plane, they can form varied patterns, and the orientation 
+of each tile can be used to visualize information associated with the tile's position within the tiling.
+
+WebGL fragment shader experiment with multiscale truchet tile patterns. JavaScript / homebrew WebGL2 
+bootstrap for canvas and shader program compiling. Vertex and Fragment shaders are contained in the 
+HTML dom and processed on init.
+
+This example also uses a QuadTree to create a multi-scaled Tile patten. This makes things a little more
+complicated by needing the program to check its neighbors 
+
+{pk}

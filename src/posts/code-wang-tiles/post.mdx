@@ -1,0 +1,32 @@
+---
+title: wang tile maze.
+slug: wang-tiles
+image: ./images/hero06.jpg
+date: 2020-03-10
+author: code
+icon: shader
+---
+
+<iframe height="320" style="width: 100%" scrolling="no" title="Wang Tiles / WebGL Fragment Shader" src="https://codepen.io/pjkarlik/embed/VwyxVyv/bc9b200a6b4391c3fec0aa88423fd588?default-tab=result&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/pjkarlik/pen/VwyxVyv/bc9b200a6b4391c3fec0aa88423fd588">
+  Wang Tiles / WebGL Fragment Shader</a> by Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+<br/><br/>
+
+## WebGL, GLSL, Javascript, and Canvas.
+
+This maze created from wang tiles is a WebGL Fragment Shader demo. Everything created is done entirely with math 
+and GLSL (the native OpenGL shader language).
+
+[Wang tiles](http://www.cr31.co.uk/stagecast/wang/intro.html) are a popular tool for procedural 
+synthesis of textures, heightfields, and mazes. 
+
+The basic concept is a set of square tiles, with each tile edge of a fixed color, are arranged side by side 
+in a rectangular grid. All four edges of each tile must 'match' (have the same color/value) as their adjoining neighbor.
+
+In this example I'm actually cutting out the pattern created by the wang tiles into the blocks to create the pathways.
+Because shaders are parallel in execution I do a neighbor check for each render pass to determin the edges.
+
+{pk}
+

@@ -1,0 +1,33 @@
+---
+title: soothing motion
+slug: code-soothing-motion
+image: ./images/hero01.jpg
+date: 2022-03-01
+author: code
+icon: shader
+---
+
+<iframe height="320" style="width: 100%" scrolling="no" title="Multiscale Truchet Tile / WebGL Fragment Shader" src="https://codepen.io/pjkarlik/embed/eYyBqeB/aa175a20c8faf697fe3d7b4683e3b0b8?theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/pjkarlik/eYyBqeB/aa175a20c8faf697fe3d7b4683e3b0b8">
+  Multiscale Truchet Tile / WebGL Fragment Shader</a> by Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+<br/><br/>
+
+## WebGl, GLSL, JavaScript, and Canvas.
+
+Soothing motion is a WebGL Fragment Shader demo created entirely with math and GLSL (the native OpenGL shader language).
+
+The concept for my work came from [Fonstantin Faraktinov](https://twitter.com/frktnv/status/1484167941025316867) and 
+his beautiful animation done in Blender3D. However I wanted to see if I could emulate this looping animation with just 
+math.
+
+There is a little bit of timing involved, but mostly this is just splitting space and using a mirror to duplicate the 
+objects and movement.
+
+Once the space is split the quarter sections of the spheres move one half space and rotates 180 degrees and then 
+changes direction from left, down, up, right. The [domain repetition](http://fabricecastel.github.io/blog/2016-08-17/main.html) does the rest. 
+
+If you look at the animation a square is made up of a 3x3 grid of posts which make the boundaries for the imaginary mirrors.
+
+{pk}

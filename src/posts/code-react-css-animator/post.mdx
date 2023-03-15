@@ -1,0 +1,55 @@
+---
+title: react css animator
+slug: code-react-css-animator
+image: ./images/hero01.jpg
+date: 2022-04-02
+author: code
+icon: html
+---
+
+<iframe height="400" style="width: 100%" scrolling="no" title="PJKarlik Homepage Feature React" src="https://codepen.io/pjkarlik/embed/PoEOjNy/a5cbeeccb36cd4003ef8c3b9d13e7d6d?default-tab=result&theme-id=light" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/pjkarlik/pen/PoEOjNy/a5cbeeccb36cd4003ef8c3b9d13e7d6d">
+  PJKarlik Homepage Feature React</a> by Paul J Karlik (<a href="https://codepen.io/pjkarlik">@pjkarlik</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+<br/><br/>
+
+## React, JavaScript, CSS, and Inline Styles. 
+
+My CSS Sprite Animator started with me just wanting to learn about context and how I could use in
+in my applications. What turned out was this cool React/Context Sprite animator that lets you create,
+edit and export (the data) of cute 'sprite' like animations.
+
+I got the idea from seeing a lot of people use the ```box-shadow``` css property to create
+these really cool pixel sprites with one DIV element. The trick uses several dozens of values stuffed into one
+selector and looks something like this.
+
+```css
+.className {
+  box-shadow: #e7c09d 40px 8px 0px, #e7c09d 48px 8px 0px,
+    #e7c09d 40px 16px 0px, #e7c09d 48px 16px 0px, #e7c09d 
+    32px 24px 0px, #e7c09d 40px 24px 0px, #ee0033 32px 32px
+    0px, #ee0033 40px 32px 0px, #ee0033 32px 40px 0px,
+    #ee0033 40px 40px 0px, #0033ff 32px 48px 0px, #0033ff 
+    40px 48px 0px, #999999 24px 56px 0px, #0033ff 32px 56px 
+    0px, #0033ff 40px 56px 0px, #0033ff 32px 64px 0px, 
+    #999999 40px 64px 0px;
+  background: transparent;
+  margin: -8px 8px 8px -8px;
+  width: 8px;
+  height: 8px;
+}
+```
+
+Click anywhere on the grid to add a color, click again to erase or use a new color. 
+You can also add a new frame, delete, copy and paste. The animation will start to play 
+as soon as a second frame is created. Click 'NEW' to start fresh!
+
+### Keyboard Shortcuts
+
+[arrow keys] position on grid
+[n]ew frame
+[c]opy frame
+[v] paste frame
+
+{pk}
